@@ -1,7 +1,6 @@
 import pytest
 from app import create_app
 from app.extensions import db
-from app.models.ticket import Ticket
 
 @pytest.fixture
 def app():
@@ -9,9 +8,7 @@ def app():
     app.config.update({
         "TESTING": True,
         "SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",
-        "SQLALCHEMY_TRACK_MODIFICATIONS": False
     })
-
     with app.app_context():
         db.create_all()
         yield app
