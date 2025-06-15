@@ -29,7 +29,7 @@ flask_api_project/
 │   ├── __init__.py         # App factory
 │   ├── config.py           # Environment configs
 │   ├── models/             # SQLAlchemy models
-│   ├── api/             # Blueprint APIs
+│   ├── routes/             # Blueprint routes
 │   ├── schemas/            # Marshmallow schemas
 │   ├── services/           # Business logic layer
 │   ├── utils/              # Helpers
@@ -57,7 +57,7 @@ In app/__init__.py
 ```
 from flask import Flask 
 from .extensions import db, ma
-from .api.tickets import tickets_bp
+from .routes.tickets import tickets_bp
 
 def create_app():
     app = Flask(__name__)
@@ -99,7 +99,7 @@ def create_app():
     CORS(app)
 
     # Register the REST API using flask-smorest
-    from app.api.ticket_resource import blp as TicketBlueprint
+    from app.routes.ticket_resource import blp as TicketBlueprint
     api = Api(app)
     api.register_blueprint(TicketBlueprint)
 
@@ -127,7 +127,7 @@ db = SQLAlchemy()
 ma = Marshmallow()
 ```
 
-▶️ run.py
+run.py
 ```
 from app import create_app
 
