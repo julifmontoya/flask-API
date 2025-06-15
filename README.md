@@ -8,16 +8,21 @@ This tutorial explains
 - Database ORM (SQLAlchemy)
 - Configs via .env (with python-dotenv)
 - Error handling (custom exceptions)
-- Testing (Pytest + coverage)
 - API docs (Swagger / OpenAPI via flasgger)
+- Testing (Pytest + coverage)
 
-✅ Create db
+## Create db
+```
 python init_db.py
+```
 
-✅ Run app
+## Run app
+```
 python run.py
+```
 
-## 1. Folder Structure (Senior-Level)
+## 1. Folder Structure
+```
 flask_api_project/
 │
 ├── app/
@@ -36,6 +41,7 @@ flask_api_project/
 ├── requirements.txt
 ├── run.py                  # Entry point
 └── README.md
+```
 
 ## 2. Requirements
 ```
@@ -46,6 +52,7 @@ venv\Scripts\activate
 
 ## 3. Initialize Flask App
 In app/__init__.py
+
 ### ✅ Option 1: Basic Flask API (using Blueprint + Marshmallow)
 ```
 from flask import Flask 
@@ -64,6 +71,7 @@ def create_app():
     return app
 ```
 
+In app/__init__.py
 ### ✅ Option 2: Flask-Smorest + Swagger + RESTful API
 ```
 from flask import Flask
@@ -131,6 +139,7 @@ if __name__ == '__main__':
 
 ## 4. Ticket Model + Schema
 In app/models/ticket.py
+
 ```
 from app.extensions import db
 
@@ -143,6 +152,7 @@ class Ticket(db.Model):
 ```
 
 In app/schemas/ticket.py
+
 ```
 from app.extensions import ma
 from app.models.ticket import Ticket
@@ -154,8 +164,9 @@ class TicketSchema(ma.SQLAlchemyAutoSchema):
 ```
 
 ## 4. Ticket Routes (5 APIs)
+In api/tickets.py
 
-### ✅ Option 1: Basic Flask API (using Blueprint + Marshmallow)
+### Option 1: Basic Flask API (using Blueprint + Marshmallow)
 ```
 from flask import Blueprint, request, jsonify, abort
 from app.extensions import db
@@ -214,7 +225,8 @@ def delete_ticket(ticket_id):
     return '', 204
 ```
 
-### ✅ Option 2: Flask-Smorest + Swagger + RESTful API
+In api/ticket_resource.py
+### Option 2: Flask-Smorest + Swagger + RESTful API
 ```
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
@@ -280,6 +292,7 @@ class TicketById(MethodView):
 ```
 
 ## 5. Initialize DB
+In init_db.py:
 ```
 from app import create_app
 from app.extensions import db
@@ -292,13 +305,13 @@ with app.app_context():
     print("✅ Database initialized.")
 ```
 
-## 6. wagger / OpenAPI Docs
+## 6. Swagger / OpenAPI Docs
 ```
 pip install flask-smorest apispec[marshmallow] flask-cors
 ```
 
 ### 6.1. Create a new api/ticket_resource.py
-Create this file at: app/api/ticket_resource.py
+In: app/api/ticket_resource.py
 ```
 from flask.views import MethodView
 from flask_smorest import Blueprint, abort
@@ -364,7 +377,7 @@ class TicketById(MethodView):
         return "", 204
 ```
 
-### 6.2. ✅ Update your create_app to register docs and blueprints
+### 6.2. Update your create_app to register docs and blueprints
 In app/__init__.py:
 ```
 from flask import Flask
