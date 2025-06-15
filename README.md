@@ -29,7 +29,7 @@ flask_api_project/
 │   ├── __init__.py         # App factory
 │   ├── config.py           # Environment configs
 │   ├── models/             # SQLAlchemy models
-│   ├── routes/             # Blueprint routes
+│   ├── routes/             # Routes
 │   ├── schemas/            # Marshmallow schemas
 │   ├── services/           # Business logic layer
 │   ├── utils/              # Helpers
